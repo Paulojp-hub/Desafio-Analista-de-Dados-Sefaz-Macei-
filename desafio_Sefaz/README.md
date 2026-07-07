@@ -137,19 +137,24 @@ Maceió se destaca na execução financeira em Saúde, mas fica abaixo da média
 
 Esse contraste mostra que a execução financeira pode variar bastante conforme a área analisada.
 
-## Gráficos Gerados
+## Visualizações Geradas
 
-Os principais gráficos gerados foram:
+A etapa de visualização foi construída para transformar os indicadores em informação acessível.
 
-- quantidade de capitais com dados disponíveis por ano;
-- ranking das capitais por taxa de execução em Saúde em 2024;
-- comparação entre Maceió e a média das demais capitais em Saúde e Educação.
+Foram gerados três gráficos principais:
 
-Os gráficos estão disponíveis em:
+1. **Capitais com dados disponíveis por ano**  
+   Mostra que 2025 ainda está incompleto, com apenas 11 capitais disponíveis.
 
-```text
-outputs/graficos/
-```
+2. **Top 10 capitais por taxa de execução em Saúde em 2024**  
+   Mostra as capitais com maior proporção de despesas pagas em relação às despesas empenhadas na função Saúde.
+
+3. **Maceió vs média das demais capitais em Saúde e Educação**  
+   Mostra que Maceió ficou acima da média em Saúde, mas abaixo da média em Educação.
+
+Os gráficos estão disponíveis em `outputs/graficos/`.
+
+Na parte de DataViz, eu tentei evitar gráficos soltos. Cada gráfico responde uma pergunta: primeiro se os dados estão completos, depois como está a execução em Saúde, e por fim como Maceió se compara com as demais capitais em Saúde e Educação.
 
 ## Observações
 
