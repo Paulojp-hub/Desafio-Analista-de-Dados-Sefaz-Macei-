@@ -1,130 +1,148 @@
-# Desafio Técnico — Estágio em Análise de Dados | Sefaz Maceió
+# Análise de Despesas por Função das Capitais Brasileiras
 
-Solução desenvolvida para o desafio técnico da vaga de estágio em Análise de Dados
-da Secretaria Municipal da Fazenda de Maceió (Sefaz Maceió). O enunciado original
-está disponível em [`DESAFIO.md`](./DESAFIO.md).
+Projeto desenvolvido para o desafio técnico de Estágio em Análise de Dados da Sefaz Maceió.
 
-## 🎯 Objetivo
+O objetivo é analisar dados de despesas das capitais brasileiras, com foco na comparação entre despesas empenhadas e despesas pagas por função orçamentária.
 
-Comparar como as 26 capitais brasileiras executam seus gastos públicos por função,
-olhando a diferença entre o que foi **empenhado** (comprometido) e o que foi
-efetivamente **pago**, usando dados do FINBRA/Siconfi de 2020 a 2025.
+## Objetivo
 
-## 🛠️ Como rodar o projeto
+Comparar como as capitais brasileiras executam suas despesas por função, observando principalmente a diferença entre o valor empenhado e o valor efetivamente pago.
 
-```bash
-# 1. Clone o repositório e entre na pasta
-git clone <url-do-seu-fork>
-cd <pasta-do-projeto>
+O principal indicador utilizado foi a Taxa de Execução Financeira:
 
-# 2. Crie e ative o ambiente virtual
-python -m venv venv
-source venv/bin/activate      # Linux/Mac
-venv\Scripts\activate         # Windows
-
-# 3. Instale as dependências
-pip install -r requirements.txt
-
-# 4. Rode o pipeline completo, na ordem
-python src/01_extrair.py
-python src/02_consolidar_dados.py
-python src/03_tratar_dados.py
-python src/04_validar_dados.py
-python src/05_gerar_indicadores.py
-python src/06_gerar_graficos.py
-python src/07_gerar_resumo.py
+```text
+Taxa de Execução = Despesas Pagas / Despesas Empenhadas * 100
 ```
 
-> ⚠️ Importante: os scripts têm dependência sequencial. Sempre que um script
-> anterior (ex: `03_tratar_dados.py`) for alterado, rode-o novamente antes dos
-> scripts seguintes, para garantir que o Parquet consolidado reflita a versão
-> mais recente do tratamento.
+Em linguagem simples, esse indicador mostra quanto do valor comprometido pela prefeitura foi realmente pago dentro do ano.
 
-## 📂 Estrutura do pipeline
+## Fonte dos Dados
 
-| Script | O que faz |
-|---|---|
-| `01_extrair.py` | Descompacta os `.zip` de `dados_compactos/` para `dados_extraidos/`, identificando o ano pela pasta de origem. |
-| `02_consolidar_dados.py` | Lê os 6 CSVs (tratando encoding Latin-1, separador `;` e decimal `,`) e consolida em um único DataFrame com a coluna `ano`. |
-| `03_tratar_dados.py` | Classifica cada linha em função/subfunção/total (evitando dupla contagem), extrai código e nome da conta, e limpa o nome da capital. |
-| `04_validar_dados.py` | Confere quantas capitais existem por ano, tipos de conta e valores nulos — gera `outputs/resumo_validacao.txt`. |
-| `05_gerar_indicadores.py` | Calcula a Taxa de Execução Financeira (Pago/Empenhado) por capital e função, incluindo valores per capita. |
-| `06_gerar_graficos.py` | Gera os gráficos comparativos em `outputs/graficos/`. |
-| `07_gerar_resumo.py` | Gera o resumo textual da análise em `outputs/resumo_analise.txt`. |
+Os dados utilizados vêm do FINBRA/Siconfi, no relatório Despesas por Função (Anexo I-E), com escopo de capitais brasileiras.
 
-## 🧠 Decisões técnicas
+Os arquivos originais estavam organizados por ano, de 2020 a 2025, dentro da pasta `dados_compactos/`.
 
-- **Parquet como formato de saída**: escolhido por ser colunar, comprimido e
-  muito mais rápido de reler do que os CSVs originais, além de preservar os
-  tipos de dado (evitando reconverter `Valor` para número a cada leitura).
-- **DuckDB para consultas agregadas**: usado sobre o Parquet consolidado para
-  aproveitar performance em SQL nas comparações entre as 26 capitais, mantendo
-  o pandas para a etapa de leitura/limpeza inicial (mais flexível para tratar
-  encoding e formatos brasileiros).
-- **Classificação de `tipo_conta` via regex**: cada linha da coluna `Conta` é
-  classificada como função, subfunção, "demais subfunções" ou total/outros,
-  evitando somar a mesma despesa duas vezes (ex: função `10 - Saúde` e sua
-  subfunção `10.301 - Atenção Básica` não são somadas juntas).
-- **Exclusão de Maceió no cálculo da "média das demais capitais"**: garante
-  que a cidade comparada não influencie o próprio parâmetro de comparação.
-- **2024 como ano principal de comparação**: 2025 está incompleto (apenas 11
-  das 26 capitais reportaram até o momento), então comparações anuais usam
-  2024 como o ano mais recente com dados completos.
+## Estrutura do Projeto
 
-## 📊 Principais conclusões
+```text
+dados_compactos/      arquivos zip originais por ano
+dados_extraidos/      arquivos csv extraídos por código
+dados_processados/    bases consolidadas e tratadas
+outputs/
+  graficos/           gráficos finais da análise
+  tabelas/            tabelas de indicadores
+notebooks/            espaço para análises exploratórias
+src/                  scripts do pipeline de dados
+```
 
-### Maceió executa bem em Saúde e Administração, mas fica atrás em Educação e Urbanismo
+## Ordem de Execução
 
-Comparando a Taxa de Execução Financeira (quanto do que foi comprometido em 2024
-realmente saiu do caixa) entre Maceió e a média das outras 25 capitais:
+Os scripts foram numerados para indicar a ordem do pipeline:
 
-| Função | Maceió | Média das demais capitais |
-|---|---|---|
-| 04 - Administração | 97,85% | 93,69% |
-| 10 - Saúde | 97,36% | 94,12% |
-| 12 - Educação | 85,52% | 93,15% |
-| 15 - Urbanismo | 80,89% | 88,91% |
+```text
+01_extrair_dados.py
+02_consolidar.py
+03_tratar_dados.py
+04_validar_dados.py
+05_gerar_indicadores.py
+06_gerar_graficos.py
+07_gerar_resumo_analise.py
+```
 
-**Uma leitura possível:** áreas com gastos mais "correntes" (folha de pagamento,
-serviços continuados), como Saúde e Administração, tendem a ser pagas com mais
-regularidade. Já Educação e Urbanismo costumam concentrar despesas de investimento
-e obras, mais suscetíveis a atrasos contratuais, ficando como "restos a pagar" —
-dinheiro comprometido, mas não pago no ano. Essa é uma hipótese razoável à luz do
-padrão observado, não uma conclusão definitiva comprovada pelos dados.
+Para rodar o projeto:
 
-### Em Saúde, Maceió está entre as melhores capitais do país
+```bash
+py src/01_extrair_dados.py
+py src/02_consolidar.py
+py src/03_tratar_dados.py
+py src/04_validar_dados.py
+py src/05_gerar_indicadores.py
+py src/06_gerar_graficos.py
+py src/07_gerar_resumo_analise.py
+```
 
-Belém lidera a execução em Saúde entre as capitais (99,93%), seguida de perto por
-Salvador e Recife. Maceió aparece em 5º lugar (97,36%), à frente de Curitiba,
-Aracaju, Rio Branco, Porto Velho e Teresina. Cuiabá tem a menor taxa de execução
-em Saúde entre as 26 capitais (85,32%).
+## Tratamento dos Dados
 
-### Sobre os dados de 2025
+Durante a leitura dos arquivos, foram considerados cuidados importantes do formato original do Siconfi:
 
-Até o momento, apenas 11 das 26 capitais entregaram seus dados de 2025 (Belo
-Horizonte, Belém, Florianópolis, Fortaleza, Goiânia, Manaus, Porto Velho, Rio
-Branco, Rio de Janeiro, Salvador e São Luís). Por isso, 2024 foi usado como o ano
-principal de comparação — mas entre as capitais que já reportaram, é possível
-observar tendências preliminares, sujeitas a mudança conforme mais capitais
-completem sua declaração.
+- separador de colunas com ponto e vírgula;
+- encoding `latin-1`;
+- três primeiras linhas como metadados;
+- valores monetários com vírgula como separador decimal;
+- criação da coluna `ano` a partir da pasta de origem.
 
-## ⚠️ Limitações e observações encontradas
+Também foi criada uma classificação para a coluna `Conta`, separando:
 
-- **1 valor nulo na coluna `Valor`** após o tratamento (de 50.335 linhas totais,
-  cerca de 0,002% da base) — não impacta as conclusões, mas é registrado aqui
-  por transparência.
-- Durante a validação, uma execução fora de ordem do pipeline (rodar a
-  validação antes de atualizar o script de tratamento) gerou uma contagem
-  temporária incorreta de 27 capitais em 2020. Após rodar o pipeline completo
-  na ordem correta, a contagem foi confirmada em 26 capitais por ano (exceto
-  2025, incompleto) — um lembrete de como pipelines dependentes exigem
-  execução sequencial completa antes de qualquer validação final.
+- função;
+- subfunção;
+- demais subfunções;
+- totais/outros.
 
-## 💬 Esclarecimentos obtidos com o recrutador (grupo do WhatsApp)
+Essa separação é importante para evitar dupla contagem, já que algumas linhas representam agregações.
 
-- A organização dos dados é anual; não há necessidade de validar estrutura por mês.
-- Para comparações entre anos, 2024 é a referência mais completa; 2025 está
-  parcial, mas ainda assim é possível (e desejável) extrair conclusões sobre
-  as capitais que já reportaram.
-- O resultado final deve priorizar clareza para um público não-técnico, com
-  visualizações e conclusões em linguagem acessível.
+## Validação dos Dados
+
+Antes da análise, foi feita uma validação da completude dos anos.
+
+A contagem mostrou que 2025 possui apenas 11 capitais disponíveis, enquanto 2021 a 2024 possuem 26 capitais. Por isso, 2024 foi usado como principal ano de comparação.
+
+Durante a validação, o ano de 2020 apareceu inicialmente com 27 capitais. Ao investigar os nomes únicos, foi encontrada uma inconsistência de padronização relacionada a Rio Branco. A correção foi aplicada no tratamento dos dados.
+
+## Indicadores Gerados
+
+Foram calculados os seguintes indicadores:
+
+- valor empenhado;
+- valor pago;
+- diferença entre empenhado e pago;
+- taxa de execução financeira;
+- valor pago per capita;
+- valor empenhado per capita.
+
+A análise principal utiliza apenas contas classificadas como função, evitando misturar funções, subfunções e totais agregados.
+
+## Principais Conclusões
+
+Em 2024, Maceió apresentou um resultado positivo na função Saúde, com taxa de execução financeira acima da média das demais capitais.
+
+Na função Educação, o comportamento foi diferente: Maceió ficou abaixo da média das demais capitais, indicando que uma parcela maior do valor empenhado não foi paga dentro do ano.
+
+Assim, a principal leitura da análise é:
+
+```text
+Maceió se destaca na execução financeira em Saúde, mas fica abaixo da média das demais capitais em Educação.
+```
+
+Esse contraste mostra que a execução financeira pode variar bastante conforme a área analisada.
+
+## Gráficos Gerados
+
+Os principais gráficos gerados foram:
+
+- quantidade de capitais com dados disponíveis por ano;
+- ranking das capitais por taxa de execução em Saúde em 2024;
+- comparação entre Maceió e a média das demais capitais em Saúde e Educação.
+
+Os gráficos estão disponíveis em:
+
+```text
+outputs/graficos/
+```
+
+## Observações
+
+O ano de 2025 foi mantido na base, mas tratado como parcial, pois nem todas as capitais haviam enviado seus dados.
+
+A comparação principal foi feita com 2024 por ser o ano completo mais recente disponível.
+
+## Tecnologias Utilizadas
+
+- Python
+- pandas
+- pyarrow
+- matplotlib
+- seaborn
+
+## Uso de IA
+
+Foi permitido o uso de IA durante o desenvolvimento. A IA foi utilizada como apoio para organização, revisão de código e estruturação da análise. As decisões metodológicas, validações e interpretação dos resultados foram estudadas e revisadas durante o desenvolvimento do projeto.
