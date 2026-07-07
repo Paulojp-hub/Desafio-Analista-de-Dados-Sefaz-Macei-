@@ -1,0 +1,39 @@
+RESUMO DE VALIDACAO DOS DADOS
+========================================
+
+Capitais por ano:
+ano
+2020.0    27
+2021.0    26
+2022.0    26
+2023.0    26
+2024.0    26
+2025.0    11
+
+Linhas por ano:
+ano
+2020.0    8988
+2021.0    8867
+2022.0    9312
+2023.0    9576
+2024.0    9528
+2025.0    4063
+
+Tipos de conta:
+tipo_conta
+subfuncao            30122
+funcao               12813
+demais_subfuncoes     6095
+total_ou_outros       1305
+
+Estagios da despesa encontrados:
+- Despesas Empenhadas
+- Despesas Liquidadas
+- Despesas Pagas
+- Inscrição de Restos a Pagar Não Processados
+- Inscrição de Restos a Pagar Processados
+
+Valores nulos na coluna Valor: 1
+
+OBSERVACAO:
+O ano de 2025 deve ser analisado com cautela, pois o README informa que ele ainda esta incompleto. Por isso, 2024 sera usado como principal ano de comparacao entre capitais.
