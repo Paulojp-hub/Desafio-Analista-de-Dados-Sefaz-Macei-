@@ -34,6 +34,8 @@ def validar_dados():
 
     # Lista quais capitais possuem dados em 2025
     capitais_2025 = sorted(df[df["ano"] == 2025]["capital"].dropna().unique())
+           
+    capitais_2020 = sorted(df[df["ano"] == 2020]["capital"].dropna().unique())
 
     # Salva o resumo da validacao em arquivo de texto
     with open(ARQUIVO_SAIDA, "w", encoding="utf-8") as arquivo:
@@ -70,6 +72,11 @@ def validar_dados():
             "ano de comparacao entre capitais.\n"
         )
 
+        arquivo.write("Capitais com dados em 2020:\n")
+        for capital in capitais_2020:
+            arquivo.write(f"- {capital}\n")
+        arquivo.write("\n")
+
     # Mostra no terminal os principais resultados
     print("Validacao concluida.")
     print("Resumo salvo em:", ARQUIVO_SAIDA)
@@ -80,7 +87,11 @@ def validar_dados():
     print("\nCapitais com dados em 2025:")  
     for capital in capitais_2025:
      print("-", capital)
-    # Isso ajuda a mostrar que 2025 esta incompleto e deve ser analisado com cautela. Além de contar quantas capitais existem em cada ano, listei quais capitais aparecem em 2025. Isso deixa claro que o ano mais recente é parcial e evita uma comparação injusta com anos completos.
+    # Isso ajuda a mostrar que 2025 esta incompleto e deve ser analisado com cautela. Além de contar quantas capitais existem em cada ano, listei quais capitais aparecem em 2025. Isso deixa claro que o ano mais recente é parcial e evita uma comparação injusta com anos completos. 
+
+    print("\nCapitais com dados em 2020:")
+    for capital in capitais_2020:
+     print("-", capital)
 
 
 if __name__ == "__main__":

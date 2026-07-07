@@ -93,12 +93,23 @@ def tratar_dados():
 
     # Simplifica o nome da instituicao para obter apenas o nome da capital
     df["capital"] = (
-     df["Instituição"]
+    df["Instituição"]
+    .astype(str)
+    .str.strip()
+    .str.replace(r" - [A-Z]{2}$", "", regex=True)
     .str.replace("Prefeitura Municipal de ", "", regex=False)
     .str.replace("Prefeitura Municipal do ", "", regex=False)
     .str.replace("Prefeitura Municipal da ", "", regex=False)
-    .str.replace(r" - [A-Z]{2}$", "", regex=True)
+    .str.replace("Municipal de ", "", regex=False)
+    .str.strip()
 )
+
+# Correção pontual identificada na validação de 2020
+    df["capital"] = df["capital"].replace({
+    "nicipal de Rio Branco": "Rio Branco"
+})
+
+
 
     # Salva a base tratada em CSV e Parquet
     df.to_csv(ARQUIVO_SAIDA_CSV, index=False, encoding="utf-8-sig")

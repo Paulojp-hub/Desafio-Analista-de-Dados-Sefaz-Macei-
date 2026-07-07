@@ -3,7 +3,7 @@ RESUMO DE VALIDACAO DOS DADOS
 
 Capitais por ano:
 ano
-2020.0    27
+2020.0    26
 2021.0    26
 2022.0    26
 2023.0    26
@@ -50,3 +50,31 @@ Capitais com dados em 2025:
 
 OBSERVACAO:
 O ano de 2025 deve ser analisado com cautela, pois o README informa que ele ainda esta incompleto. Por isso, 2024 sera usado como principal ano de comparacao entre capitais.
+Capitais com dados em 2020:
+- Aracaju
+- Belo Horizonte
+- Belém
+- Boa Vista
+- Campo Grande
+- Cuiabá
+- Curitiba
+- Florianópolis
+- Fortaleza
+- Goiânia
+- João Pessoa
+- Macapá
+- Maceió
+- Manaus
+- Natal
+- Palmas
+- Porto Alegre
+- Porto Velho
+- Recife
+- Rio Branco
+- Rio de Janeiro
+- Salvador
+- São Luís
+- São Paulo
+- Teresina
+- Vitória
+
