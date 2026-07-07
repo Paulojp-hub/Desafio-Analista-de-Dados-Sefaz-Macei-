@@ -32,11 +32,13 @@ def validar_dados():
     # Conta valores nulos na coluna Valor
     valores_nulos = df["Valor"].isna().sum()
 
+    # Lista quais capitais possuem dados em 2025
+    capitais_2025 = sorted(df[df["ano"] == 2025]["capital"].dropna().unique())
+
     # Salva o resumo da validacao em arquivo de texto
     with open(ARQUIVO_SAIDA, "w", encoding="utf-8") as arquivo:
         arquivo.write("RESUMO DE VALIDACAO DOS DADOS\n")
-        arquivo.write("=" * 40 + "\n\n")
-
+        arquivo.write("=" * 40 + "\n\n")  
         arquivo.write("Capitais por ano:\n")
         arquivo.write(capitais_por_ano.to_string())
         arquivo.write("\n\n")
@@ -55,6 +57,11 @@ def validar_dados():
 
         arquivo.write("\n")
         arquivo.write(f"Valores nulos na coluna Valor: {valores_nulos}\n")
+         
+        arquivo.write("Capitais com dados em 2025:\n")
+        for capital in capitais_2025:
+            arquivo.write(f"- {capital}\n")
+        arquivo.write("\n")
 
         arquivo.write("\nOBSERVACAO:\n")
         arquivo.write(
@@ -69,6 +76,11 @@ def validar_dados():
     print("\nCapitais por ano:")
     print(capitais_por_ano)
     print("\nValores nulos na coluna Valor:", valores_nulos)
+
+    print("\nCapitais com dados em 2025:")  
+    for capital in capitais_2025:
+     print("-", capital)
+    # Isso ajuda a mostrar que 2025 esta incompleto e deve ser analisado com cautela. Além de contar quantas capitais existem em cada ano, listei quais capitais aparecem em 2025. Isso deixa claro que o ano mais recente é parcial e evita uma comparação injusta com anos completos.
 
 
 if __name__ == "__main__":

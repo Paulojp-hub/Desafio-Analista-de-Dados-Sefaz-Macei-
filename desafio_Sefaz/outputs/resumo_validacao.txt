@@ -34,6 +34,19 @@ Estagios da despesa encontrados:
 - Inscrição de Restos a Pagar Processados
 
 Valores nulos na coluna Valor: 1
+Capitais com dados em 2025:
+- Belo Horizonte
+- Belém
+- Florianópolis
+- Fortaleza
+- Goiânia
+- Manaus
+- Porto Velho
+- Prefeitura Municipal do Rio de Janeiro
+- Rio Branco
+- Salvador
+- São Luís
+
 
 OBSERVACAO:
 O ano de 2025 deve ser analisado com cautela, pois o README informa que ele ainda esta incompleto. Por isso, 2024 sera usado como principal ano de comparacao entre capitais.
