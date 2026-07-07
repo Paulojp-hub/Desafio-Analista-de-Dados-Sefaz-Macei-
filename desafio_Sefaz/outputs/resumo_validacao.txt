@@ -42,8 +42,8 @@ Capitais com dados em 2025:
 - Goiânia
 - Manaus
 - Porto Velho
-- Prefeitura Municipal do Rio de Janeiro
 - Rio Branco
+- Rio de Janeiro
 - Salvador
 - São Luís
 
