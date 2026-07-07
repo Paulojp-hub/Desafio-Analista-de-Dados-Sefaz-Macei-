@@ -1,0 +1,32 @@
+RESUMO DA ANALISE - DESPESAS POR FUNCAO DAS CAPITAIS
+============================================================
+
+Ano principal de comparacao: 2024
+O ano de 2024 foi usado como referencia principal porque 2025 ainda esta incompleto, conforme validado pela quantidade de capitais disponiveis.
+
+Indicador principal:
+Taxa de execucao financeira = despesas pagas / despesas empenhadas * 100.
+Em linguagem simples, esse indicador mostra quanto do dinheiro comprometido foi efetivamente pago dentro do ano.
+
+Comparacao de Maceio com as demais capitais:
+- 04 - Administração:
+  Maceio: 97.85%
+  Media das demais capitais: 93.69%
+- 10 - Saúde:
+  Maceio: 97.36%
+  Media das demais capitais: 94.12%
+- 12 - Educação:
+  Maceio: 85.52%
+  Media das demais capitais: 93.15%
+- 15 - Urbanismo:
+  Maceio: 80.89%
+  Media das demais capitais: 88.91%
+
+Destaque em Saude no ano de 2024:
+- Maior taxa de execucao: Belém (99.93%).
+- Menor taxa de execucao: Cuiabá (85.32%).
+
+Observacoes metodologicas:
+- A analise principal usa apenas linhas classificadas como funcao, evitando misturar funcoes, subfuncoes e totais agregados.
+- Maceio foi removida do calculo da media das demais capitais, para evitar que ela influenciasse o proprio parametro de comparacao.
+- Valores per capita foram calculados para permitir comparacoes mais justas entre cidades de tamanhos diferentes.
