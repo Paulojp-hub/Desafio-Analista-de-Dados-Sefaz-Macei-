@@ -101,6 +101,28 @@ Foram calculados os seguintes indicadores:
 
 A análise principal utiliza apenas contas classificadas como função, evitando misturar funções, subfunções e totais agregados.
 
+## Comunicação dos Resultados
+
+Além das tabelas de indicadores, foram gerados gráficos para facilitar a leitura dos resultados por pessoas não técnicas.
+
+A ideia foi transformar os dados em informação acessível, mostrando visualmente:
+
+- quais anos possuem dados completos;
+- por que 2025 não deve ser usado como principal comparação;
+- quais capitais tiveram melhor execução financeira em Saúde;
+- como Maceió se posiciona em relação à média das demais capitais em Saúde e Educação.
+
+Os gráficos foram pensados para responder perguntas simples, como:
+
+```text
+O ano analisado tem dados suficientes?
+Quanto do valor empenhado foi realmente pago?
+Maceió está acima ou abaixo da média das demais capitais?
+```
+
+Dessa forma, a análise busca não apenas calcular indicadores, mas comunicar os resultados de maneira clara e útil para tomada de decisão.
+
+
 ## Principais Conclusões
 
 Em 2024, Maceió apresentou um resultado positivo na função Saúde, com taxa de execução financeira acima da média das demais capitais.
