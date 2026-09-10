@@ -112,6 +112,13 @@ def gerar_indicadores():
     print("\nColunas geradas:")
     print(indicadores.columns.tolist())
 
-
-if __name__ == "__main__":
-    gerar_indicadores()
+#melhoria encontrada 
+#if __name__ == "__main__":
+#    gerar_indicadores()
+    
+#    def gerar_indicadores():
+#    dados = carregar_dados()
+#   dados_execucao = filtrar_despesas_execucao(dados)
+#    indicadores = consolidar_despesas(dados_execucao)
+#    indicadores = calcular_indicadores_financeiros(indicadores)
+#    salvar_indicadores(indicadores)
