@@ -173,3 +173,19 @@ A comparação principal foi feita com 2024 por ser o ano completo mais recente 
 ## Uso de IA
 
 Foi permitido o uso de IA durante o desenvolvimento. A IA foi utilizada como apoio para organização, revisão de código e estruturação da análise. As decisões metodológicas, validações e interpretação dos resultados foram estudadas e revisadas durante o desenvolvimento do projeto.
+
+## Refatoração e Qualidade de Código
+
+Como parte de uma revisão formal de qualidade, o projeto passou
+por um processo de refatoração utilizando princípios de Clean Code.
+
+Principais melhorias realizadas:
+
+- divisão de funções com múltiplas responsabilidades;
+- melhoria nos nomes de funções e variáveis;
+- redução de código duplicado;
+- tratamento explícito de erros;
+- inclusão de logging;
+- melhoria da organização e legibilidade do pipeline.
+
+O diagnóstico completo está disponível em `DIAGNOSTICO.md`.
