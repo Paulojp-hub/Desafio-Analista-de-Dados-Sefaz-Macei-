@@ -126,3 +126,8 @@ def tratar_dados():
 
 if __name__ == "__main__":
     tratar_dados()
+    
+    #diversas responsabilidades: leitura da base, tratamento das colunas, transformação de valores, classificação das contas, extração de códigos/nome, limpeza do nome da capital, correção específica de Rio Branco, salvamento e exibição do resumo.
+    
+    #def normalizar_nome_capital(serie):
+    
