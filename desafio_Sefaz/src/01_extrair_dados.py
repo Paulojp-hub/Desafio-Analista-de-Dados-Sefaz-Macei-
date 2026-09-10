@@ -46,3 +46,33 @@ def extrair_arquivos_zip():
 # Ou seja, quando usamos: python src/01_extrair_dados.py
 if __name__ == "__main__":
     extrair_arquivos_zip()
+    
+ #correção de bug: adicionado tratamento de exceções para arquivos ZIP inválidos ou corrompidos, e para erros de acesso a arquivos ou diretórios.   
+    
+import logging
+import zipfile
+
+logger = logging.getLogger(__name__)
+
+def extrair_arquivo_zip(arquivo_zip, destino):
+    try:
+        with zipfile.ZipFile(arquivo_zip, "r") as zip_ref:
+            zip_ref.extractall(destino)
+
+        logger.info(
+            "Arquivo %s extraído para %s",
+            arquivo_zip.name,
+            destino,
+        )
+
+    except zipfile.BadZipFile:
+        logger.exception(
+            "Arquivo ZIP inválido ou corrompido: %s",
+            arquivo_zip
+        )
+
+    except OSError:
+        logger.exception(
+            "Erro ao acessar arquivo ou diretório: %s",
+            arquivo_zip
+        )
